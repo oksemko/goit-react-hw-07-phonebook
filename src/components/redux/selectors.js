@@ -11,3 +11,5 @@ export const getFilteredContacts = state => {
     })
     .sort((a, b) => a.name.localeCompare(b.name));
 };
+
+export const getValue = state => state.contacts.filter;

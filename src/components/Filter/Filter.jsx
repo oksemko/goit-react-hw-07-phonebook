@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import actions from 'components/redux/actions';
+import { getValue } from 'components/redux/selectors';
 
 import { Container, Label, Input } from './Filter.styled';
 
 export const Filter = ({ title }) => {
-  const value = useSelector(state => state.contacts.filter);
+  const value = useSelector(getValue);
 
   const dispatch = useDispatch();
 
