@@ -1,17 +1,14 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import actions from 'components/redux/actions';
-import { getContacts } from 'components/redux/selectors';
+import {useCreateContactMutation } from 'components/redux/api-service';
 
 import { Form, Container, Label, Input, Button } from './ContactsForm.styled';
 
-export const ContactsForm = () => {
+
+function ContactsForm({ contacts: { data: contacts } }) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
-
+  const [createContact] = useCreateContactMutation();
 
   const handleInputChange = event => {
     const { name, value } = event.currentTarget;
@@ -33,18 +30,13 @@ export const ContactsForm = () => {
 const handleSubmit = event => {
     event.preventDefault();
 
-    const isContact = contacts.find(contact => contact.name === name);
-    if (isContact) {
-      alert(`${name} is already in contact`);
+  const contactExist = contacts.find(contact => contact.name === name);
+  if (!contactExist) {
+    createContact({ name, number });
+    setName('');
+    setNumber('');
     } else {
-      dispatch(
-        actions.contactAdd({
-          name,
-          number,
-        }),
-      );
-      setName('');
-      setNumber('');
+      alert(`${name} is already in contact`);
     }
   };
 
@@ -83,3 +75,5 @@ const handleSubmit = event => {
       </Form>
     );
 }
+
+export default ContactsForm;
