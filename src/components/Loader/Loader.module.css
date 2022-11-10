@@ -1,6 +1,5 @@
-.Watch {
+.ColorRing {
   display: flex;
   justify-content: center;
-  margin-bottom: 40px;
   transform-origin: 50% 50%;
 }
