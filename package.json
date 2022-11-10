@@ -1,8 +1,8 @@
 {
-  "name": "react-homework-6-phonebook",
+  "name": "react-homework-7-phonebook",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://oksemko.github.io/goit-react-hw-06-phonebook/",
+  "homepage": "https://oksemko.github.io/goit-react-hw-07-phonebook/",
   "dependencies": {
     "@redux-devtools/extension": "^3.2.3",
     "@reduxjs/toolkit": "^1.8.6",
@@ -13,6 +13,7 @@
     "prop-types": "^15.8.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-loader-spinner": "^5.3.4",
     "react-redux": "^8.0.4",
     "react-scripts": "5.0.1",
     "redux": "^4.2.0",
