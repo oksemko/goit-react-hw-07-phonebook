@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
-
 import { useDeleteContactMutation } from 'components/redux/api-service';
 
 import { Button, ContactsElement, Span } from '../ContactsItem/ContactsItem.styled';
+
 
 export const ContactsItem = ({ contact}) => {
   const { id, name, number } = contact;
@@ -27,6 +27,6 @@ ContactsItem.propTypes = {
   contact: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    number: PropTypes.string.isRequired,
+    // number: PropTypes.string.isRequired,
   }),
-};
+}
