@@ -76,4 +76,4 @@ const handleSubmit = event => {
     );
 }
 
-export default ContactsForm;
+export { ContactsForm };

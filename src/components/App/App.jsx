@@ -6,8 +6,6 @@ import { Filter } from '../Filter/Filter';
 
 import { Container, Title } from './App.styled';
 
-// import useLocalStorage from 'hooks/useLocalStorage';
-
 
 function App() {
   const fetchContacts = useFetchContactsQuery()

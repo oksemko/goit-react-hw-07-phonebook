@@ -5,10 +5,11 @@ import { filter } from './Filter/reducer';
 
 export const store = configureStore({
   reducer: {
-    [contactsApi.reducerPath]: contactsApi.reducer,
+    [contactsApi.reducerPath]: contactsApi.reducer, // (Add the generated reducer as a specific top-level slice)
     filter: filter,
   },
   middleware: getDefaultMiddleware => [
+    //(api middleware enables caching, invalidation, polling ...)
     ...getDefaultMiddleware(),
     contactsApi.middleware,
   ],

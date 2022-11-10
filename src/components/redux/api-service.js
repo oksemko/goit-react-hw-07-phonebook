@@ -1,5 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+// import type { Contacts } from './types';
 
+// Define a service using a base URL and expected endpoints
 export const contactsApi = createApi({
   reducerPath: 'contactsApi',
   baseQuery: fetchBaseQuery({
@@ -29,6 +31,8 @@ export const contactsApi = createApi({
   }),
 });
 
+// Export hooks for usage in functional components, which are
+// auto-generated based on the defined endpoints
 export const {
   useFetchContactsQuery,
   useCreateContactMutation,
