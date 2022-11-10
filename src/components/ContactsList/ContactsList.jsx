@@ -1,6 +1,7 @@
 import {useSelector } from 'react-redux';
 import { ContactsItem } from '../ContactsItem/ContactsItem';
 import { Loader } from 'components/Loader/Loader';
+import { ColorRing } from 'react-loader-spinner';
 
 import { List } from './ContactsList.styled';
 
@@ -11,7 +12,14 @@ export const ContactsList = ({ contacts: { data: contacts, isFetching, isError }
   return (
     <>
       {isFetching && (
-        <Loader></Loader>
+        <>
+          <ColorRing
+          height={200}
+          width={200}
+          ariaLabel="blocks-loading"
+          />
+          <Loader />
+        </>
       )}
       {!isFetching && !isError && contacts && (
         <List>
