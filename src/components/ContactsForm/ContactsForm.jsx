@@ -1,10 +1,14 @@
+import { useFetchContactsQuery } from '../redux/api-service';
+
 import { useState } from 'react';
 import {useCreateContactMutation } from 'components/redux/api-service';
 
 import { Form, Container, Label, Input, Button } from './ContactsForm.styled';
 
 
-function ContactsForm({ contacts: { data: contacts } }) {
+function ContactsForm() {
+  const { data: contacts } = useFetchContactsQuery();
+
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 

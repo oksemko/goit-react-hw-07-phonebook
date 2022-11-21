@@ -17,7 +17,7 @@ export const ContactsItem = ({ contact}) => {
         disabled={isLoading}
       >
         {isLoading ? 'Deleting' : 'Delete'}
-        Delete
+        {/* Delete */}
       </Button>
     </ContactsElement>
   );
