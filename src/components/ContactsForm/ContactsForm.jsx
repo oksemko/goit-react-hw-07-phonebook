@@ -1,7 +1,6 @@
-import { useFetchContactsQuery } from '../redux/api-service';
+import { useFetchContactsQuery,  useCreateContactMutation } from 'redux/api-service';
 
 import { useState } from 'react';
-import {useCreateContactMutation } from 'components/redux/api-service';
 
 import { Form, Container, Label, Input, Button } from './ContactsForm.styled';
 

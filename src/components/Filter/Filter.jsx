@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeFilter } from 'components/redux/Filter/actions';
+import { changeFilter } from 'redux/Filter/actions';
 
 import { Container, Label, Input } from './Filter.styled';
 

@@ -1,4 +1,4 @@
-import { useFetchContactsQuery } from '../redux/api-service';
+import { useFetchContactsQuery } from 'redux/api-service';
 
 import { useSelector } from 'react-redux';
 import { ContactsItem } from '../ContactsItem/ContactsItem';
