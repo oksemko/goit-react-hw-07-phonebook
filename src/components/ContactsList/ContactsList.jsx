@@ -1,45 +1,64 @@
-import { useFetchContactsQuery } from 'redux/api-service';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 
-import { useSelector } from 'react-redux';
+import { fetchContacts } from 'redux/contacts/contacts-operations';
 import { ContactsItem } from '../ContactsItem/ContactsItem';
 import { Loader } from 'components/Loader/Loader';
 import { ColorRing } from 'react-loader-spinner';
+import { selectFilteredContacts } from 'redux/contacts/contacts-selectors';
+// import actions from 'redux/contacts/actions';
 
 import { List } from './ContactsList.styled';
 
+import { deleteContact } from 'redux/contacts/contacts-operations';
+
+
 
 export const ContactsList = () => {
-  const { data: contacts, isFetching, isError } = useFetchContactsQuery();
+  const filteredContacts = useSelector(selectFilteredContacts);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchContacts()
+    )
+  }, [dispatch]
+  );
 
 
-  const filterValue = useSelector(state => state.filter);
+const onDeleteContact = (id) => {
+    const action = deleteContact(id)
+    dispatch(action);
+  }
 
-    return (
-      <>
-        {isFetching && (
-          <>
-            <ColorRing
-              height={200}
-              width={200}
-              ariaLabel="blocks-loading"
-            />
-            <Loader />
-          </>
-        )}
-        {!isFetching && !isError && contacts && (
-          <List>
-            {contacts
-              .filter(({ name }) =>
-                name.toLowerCase().includes(filterValue.toLowerCase()),
-              )
-              .sort((a, b) => a.name.localeCompare(b.name))
-              .map(item => {
-                const { id, name, number } = item;
-                return <ContactsItem contact={{ id, name, number }} key={id} />;
-              })}
+
+  return (
+    <>
+      {fetchContacts && (
+        <>
+          <ColorRing
+            height={200}
+            width={200}
+            ariaLabel="blocks-loading"
+          />
+          <Loader />
+        </>
+      )}
+    <List>
+      {filteredContacts.map(({ id, name, number }) => {
+        return (
+          <ContactsItem
+            contact={{ id, name, number }}
+            key={id}
+            onDelete={id => onDeleteContact(id)}
+          />
+        );
+      })}
           </List>
-        )}
-        {isError && <h1>Data are not found</h1>}
       </>
-    );
-  };
+  );
+}
+
+
+
+

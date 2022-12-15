@@ -1,17 +1,23 @@
-import { useFetchContactsQuery,  useCreateContactMutation } from 'redux/api-service';
-
 import { useState } from 'react';
+import {  useDispatch, useSelector } from 'react-redux';
+// import { fetchContacts } from 'redux/contacts/contacts-operations';
+import { addContact } from 'redux/contacts/contacts-operations';
+import { selectFilteredContacts } from 'redux/contacts/contacts-selectors';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { Form, Container, Label, Input, Button } from './ContactsForm.styled';
 
 
 function ContactsForm() {
-  const { data: contacts } = useFetchContactsQuery();
-
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const [createContact] = useCreateContactMutation();
+  const dispatch = useDispatch();
+  const getContacts = useSelector(selectFilteredContacts);
+
+
 
   const handleInputChange = event => {
     const { name, value } = event.currentTarget;
@@ -30,16 +36,30 @@ function ContactsForm() {
   };
 
 
-const handleSubmit = event => {
+  const handleSubmit = event => {
     event.preventDefault();
-
-  const contactExist = contacts.find(contact => contact.name === name);
-  if (!contactExist) {
-    createContact({ name, number });
-    setName('');
-    setNumber('');
+    // const form = event.target;
+    const contactExists = getContacts.find(contact => contact.name === name);
+     if (contactExists) {
+      toast.warn('🔔 Contact exists!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      })
     } else {
-      alert(`${name} is already in contact`);
+      dispatch(
+        addContact({
+          name,
+          number,
+        }),
+      );
+      setName('');
+      setNumber('');
     }
   };
 
@@ -50,6 +70,7 @@ const handleSubmit = event => {
           <Label>
             Name
             <Input
+              placeholder='Please enter name'
               type="text"
               name="name"
               pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -62,6 +83,7 @@ const handleSubmit = event => {
           <Label>
             Number
             <Input
+              placeholder='Please enter phone number'
               type="tel"
               name="number"
               pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -71,6 +93,7 @@ const handleSubmit = event => {
               onChange={handleInputChange}
             />
           </Label>
+          <ToastContainer />
           <Button type="submit">
             Add contact
           </Button>
