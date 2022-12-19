@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { fetchContacts } from 'redux/contacts/contacts-operations';
 import { ContactsItem } from '../ContactsItem/ContactsItem';
 import { Loader } from 'components/Loader/Loader';
-import { ColorRing } from 'react-loader-spinner';
+// import { ColorRing } from 'react-loader-spinner';
 import { selectFilteredContacts } from 'redux/contacts/contacts-selectors';
 // import actions from 'redux/contacts/actions';
 
@@ -34,31 +34,26 @@ const onDeleteContact = (id) => {
 
   return (
     <>
-      {fetchContacts && (
-        <>
-          <ColorRing
-            height={200}
-            width={200}
-            ariaLabel="blocks-loading"
-          />
-          <Loader />
-        </>
+      {!fetchContacts && (
+        <Loader />
       )}
-    <List>
-      {filteredContacts.map(({ id, name, number }) => {
-        return (
-          <ContactsItem
-            contact={{ id, name, number }}
-            key={id}
-            onDelete={id => onDeleteContact(id)}
-          />
-        );
-      })}
-          </List>
-      </>
-  );
-}
 
+      <List>
+        {filteredContacts.map(({ id, name, number }) => {
+          return (
+            <ContactsItem
+              contact={{ id, name, number }}
+              key={id}
+              onDelete={id => onDeleteContact(id)}
+            />
+          );
+        })}
+      </List>
+
+  </>
+  );
+// }
+}
 
 
 
